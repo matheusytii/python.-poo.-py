@@ -1,0 +1,31 @@
+#criação da classe
+class Conta_bancaria:
+    # criação do construtor com os paramentros
+    def __init__(self, numero_conta, titular, saldo=0):
+        self._numero_conta = numero_conta
+        self._titular = titular
+        self._saldo = saldo 
+     #criação da função depositar com os metodos 
+    def depositar(self, valor):
+        if valor > 0:
+            self._saldo += valor
+            print(f'depósito de R$ {valor :.2f} realizado com sucesso!')    
+        else:
+            print('saldo insuficiente!')
+    #criação da função da função sacar com os metodos
+    def sacar(self, valor):
+        if 0 < valor <= self._saldo:
+             self._saldo -= valor
+             print(f' saque de R${valor:.2f} realizado com sucesso!')
+        else:
+            print('saldo insuficiente!')  
+    #criação da função  consltar_saldo   
+    def consulta_saldo(self):
+        return f'saldo autal: R$ {self._saldo:.2f}'
+            
+#testes
+conta = Conta_bancaria (123456,'matheus')
+conta.depositar(500)
+print(conta.consulta_saldo())
+conta.sacar(200)
+print(conta.consulta_saldo())

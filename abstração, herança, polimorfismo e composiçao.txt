@@ -1,0 +1,71 @@
+from abc import ABC, abstractmethod
+
+# Classe abstrata para veículos
+class Veiculo(ABC):
+    def __init__(self, motor):
+        self._velocidade = 0  # Velocidade inicial
+        self.motor = motor  # Composição: o veículo tem um motor
+
+    @abstractmethod
+    def acelerar(self):
+        pass
+
+    @abstractmethod
+    def frear(self):
+        pass
+
+    def mostrar_velocidade(self):
+        print(f"Velocidade atual: {self._velocidade} km/h")
+
+    def mostrar_potencia_motor(self):
+        print(f"Potência do motor: {self.motor.potencia} cv")
+
+
+class Motor:
+    def __init__(self, potencia):
+        self.potencia = potencia  # Potência do motor
+
+# Classe Carro que herda de Veiculo
+class Carro(Veiculo):
+    def __init__(self, motor):
+        super().__init__(motor)  # Inicializa a classe base com o motor
+
+    def acelerar(self):
+        self._velocidade += 10
+        print("Carro acelerou 10 km/h.")
+
+    def frear(self):
+        self._velocidade = max(0, self._velocidade - 10)
+        print("Carro reduziu 10 km/h.")
+
+# Classe Moto que herda de Veiculo
+class Moto(Veiculo):
+    def __init__(self, motor):
+        super().__init__(motor)
+
+    def acelerar(self):
+        self._velocidade += 15
+        print("Moto acelerou 15 km/h.")
+
+    def frear(self):
+        self._velocidade = max(0, self._velocidade - 10)
+        print("Moto reduziu 10 km/h.")
+
+# Função para testar o polimorfismo
+def testar_veiculo(veiculo):
+    veiculo.acelerar()
+    veiculo.acelerar()
+    veiculo.mostrar_velocidade()
+    veiculo.frear()
+    veiculo.mostrar_velocidade()
+    veiculo.mostrar_potencia_motor()
+
+# Teste com Carro e Moto
+motor_carro = Motor(150)
+motor_moto = Motor(100)
+
+carro = Carro(motor_carro)
+moto = Moto(motor_moto)
+
+testar_veiculo(carro)
+testar_veiculo(moto)
